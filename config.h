@@ -4,12 +4,12 @@
 static const unsigned int borderpx  = 0;        /* border pixel of windows */
 static const unsigned int snap      = 32;       /* snap pixel */
 static const unsigned int systraypinning = 0;   /* 0: sloppy systray follows selected monitor, >0: pin systray to monitor X */
-static const unsigned int systrayspacing = 2;   /* systray spacing */
+static const unsigned int systrayspacing = 4;   /* systray spacing */
 static const int systraypinningfailfirst = 1;   /* 1: if pinning fails, display systray on the first monitor, False: display systray on the last monitor*/
 static const int showsystray        = 1;     /* 0 means no systray */
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
-static const char *fonts[]          = { "Google Sans:size=10" };
+static const char *fonts[]          = { "Google Sans Medium:size=9" };
 static const char col_gray1[]       = "#000000";
 static const char col_gray2[]       = "#444444";
 static const char col_gray3[]       = "#dfdfdf";
@@ -22,7 +22,7 @@ static const char *colors[][3]      = {
 };
 
 /* tagging */
-static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
+static const char *tags[] = { "🌑", "🌑", "🌑", "🌑", "🌑", "🌑", "🌑", "🌑", "🌑" };
 
 static const Rule rules[] = {
 	/* xprop(1):
@@ -61,7 +61,7 @@ static const Layout layouts[] = {
 
 /* commands */
 static const char *launcher[] = { "rofi", "-show", "drun", NULL };
-static const char *termcmd[]  = { "terminator", NULL };
+static const char *termcmd[]  = { "termite", NULL };
 static const char *screenshot[]  = { "/home/law/apps/scripts/screenshot.sh", NULL };
 static const char *screenshotsave[]  = { "/home/law/apps/scripts/screenshot.sh", "--save", NULL };
 static const char *audiomute[]  = {"pactl", "set-sink-mute", "0", "toggle", NULL };
@@ -95,6 +95,8 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_u, spawn,          {.v = suspend } },
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
+	{ MODKEY1,                       XK_Tab,      focusstack,     {.i = +1 } },
+	{ MODKEY1|ShiftMask,                       XK_Tab,      focusstack,     {.i = -1 } },
 	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
 	{ MODKEY,                       XK_i,      incnmaster,     {.i = +1 } },
 	{ MODKEY,                       XK_d,      incnmaster,     {.i = -1 } },
@@ -131,7 +133,9 @@ static Button buttons[] = {
 	/* click                event mask      button          function        argument */
 	{ ClkLtSymbol,          0,              Button1,        setlayout,      {0} },
 	{ ClkLtSymbol,          0,              Button3,        setlayout,      {.v = &layouts[2]} },
-	{ ClkWinTitle,          0,              Button2,        zoom,           {0} },
+	{ ClkWinTitle,          0,              Button1,        focusstack,     {.i = +1 } },
+	{ ClkWinTitle,          0,              Button3,        focusstack,     {.i = -1 } },
+	{ ClkWinTitle,          0,              Button2,        spawn,     {.v = mpctoggle } },
 	{ ClkStatusText,        0,              Button2,        spawn,          {.v = termcmd } },
 	{ ClkClientWin,         MODKEY,         Button1,        movemouse,      {0} },
 	{ ClkClientWin,         MODKEY,         Button2,        togglefloating, {0} },
