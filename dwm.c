@@ -198,6 +198,7 @@ static void focus(Client *c);
 static void focusin(XEvent *e);
 static void focusmon(const Arg *arg);
 static void focusstack(const Arg *arg);
+static void quickSwap();
 static Atom getatomprop(Client *c, Atom prop);
 static int getrootptr(int *x, int *y);
 static long getstate(Window w);
@@ -975,6 +976,35 @@ focusstack(const Arg *arg)
 			for (; i; i = i->next)
 				if (ISVISIBLE(i))
 					c = i;
+	}
+	if (c) {
+		focus(c);
+		restack(selmon);
+	}
+}
+
+int swapFlag = 0;
+void
+quickSwap()
+{
+	Client *c = NULL, *i;
+
+	if (!selmon->sel)
+		return;
+	if (swapFlag == 0) {
+		for (c = selmon->sel->next; c && !ISVISIBLE(c); c = c->next);
+		if (!c)
+			for (c = selmon->clients; c && !ISVISIBLE(c); c = c->next);
+		swapFlag = 1;
+	} else {
+		for (i = selmon->clients; i != selmon->sel; i = i->next)
+			if (ISVISIBLE(i))
+				c = i;
+		if (!c)
+			for (; i; i = i->next)
+				if (ISVISIBLE(i))
+					c = i;
+		swapFlag = 0;
 	}
 	if (c) {
 		focus(c);

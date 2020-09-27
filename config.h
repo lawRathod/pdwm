@@ -17,7 +17,7 @@ static const int topbar             = 1;        /* 0 means bottom bar */
 static const char *fonts[]          = { "Google Sans Medium:size=9", "FuraCode Nerd Font:size=10" };
 static const char col_gray1[]       = "#000000";
 static const char col_gray2[]       = "#262626";
-static const char col_gray3[]       = "#dfdfdf";
+static const char col_gray3[]       = "#ffffff";
 static const char col_gray4[]       = "#eeeeee";
 static const char col_cyan[]        = "#005577";
 static const char *colors[][3]      = {
@@ -27,7 +27,7 @@ static const char *colors[][3]      = {
 };
 
 /* tagging */
-static const char *tags[] = { "ﱣ", "ﱣ", "ﱣ", "ﱣ", "ﱣ", "ﱣ", "ﱣ", "ﱣ", "ﱣ" };
+static const char *tags[] = { "爵", "", "", "", "ﱣ", "ﱣ", "ﱣ", "ﱣ", "" };
 
 static const Rule rules[] = {
 	/* xprop(1):
@@ -101,8 +101,7 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_u, spawn,          {.v = suspend } },
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
-	{ MODKEY1,                      XK_Tab,      focusstack,     {.i = +1 } },
-	{ MODKEY1|ShiftMask,            XK_Tab,      focusstack,     {.i = -1 } },
+	{ MODKEY1,                      XK_Tab,      quickSwap,     {0}},
 	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
 	{ MODKEY,                       XK_i,      incnmaster,     {.i = +1 } },
 	{ MODKEY,                       XK_d,      incnmaster,     {.i = -1 } },
@@ -158,7 +157,7 @@ static Button buttons[] = {
 	{ ClkWinTitle,          0,              Button1,        focusstack,     {.i = +1 } },
 	{ ClkWinTitle,          0,              Button3,        focusstack,     {.i = -1 } },
 	{ ClkWinTitle,          0,              Button2,        spawn,     	{.v = mpctoggle } },
-	{ ClkStatusText,        0,              Button2,        spawn,          {.v = termcmd } },
+	{ ClkStatusText,        0,              Button2,        spawn,          {.v = launcher } },
 	{ ClkClientWin,         MODKEY,         Button1,        movemouse,      {0} },
 	{ ClkClientWin,         MODKEY,         Button2,        togglefloating, {0} },
 	{ ClkClientWin,         MODKEY,         Button3,        resizemouse,    {0} },
